@@ -33,4 +33,16 @@ class User extends Authenticatable
     public function favourites() {
         return $this->hasMany(Favourite::class);
     }
+
+        // Retrieve the JWT identifier
+        public function getJWTIdentifier()
+        {
+            return $this->getKey();
+        }
+    
+        // Return a key-value array containing any custom claims
+        public function getJWTCustomClaims()
+        {
+            return [];
+        }
 }
