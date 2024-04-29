@@ -10,18 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class FavouriteController extends Controller
 {
-    /**
-     * Store a new favourite in the database.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $carId
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(Request $request, $carId)
     {
-        $user = Auth::user(); // Get the authenticated user
+        $user = Auth::user();
 
-        // Check if the car exists and if it is already favourited
         $car = Car::find($carId);
         if (!$car) {
             return response()->json(['message' => 'Car not found'], 404);
@@ -31,7 +23,6 @@ class FavouriteController extends Controller
             return response()->json(['message' => 'Car already favourited'], 409);
         }
 
-        // Create the favourite
         $favourite = new Favourite();
         $favourite->user_id = $user->id;
         $favourite->car_id = $carId;
@@ -43,12 +34,6 @@ class FavouriteController extends Controller
         ], 201);
     }
 
-    /**
-     * Display a list of all favourite cars for a specific user.
-     *
-     * @param  int  $userId
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function index($userId)
     {
         $user = User::find($userId);
@@ -59,5 +44,18 @@ class FavouriteController extends Controller
         $favourites = $user->favourites()->with('car')->get();
 
         return response()->json($favourites);
+    }
+
+    public function destroy($carId)
+    {
+        $user = Auth::user();
+        $favourite = $user->favourites()->where('car_id', $carId)->first();
+        if (!$favourite) {
+            return response()->json(['message' => 'Favourite not found'], 404);
+        }
+
+        $favourite->delete();
+
+        return response()->json(['message' => 'Car removed from favourites successfully'], 200);
     }
 }

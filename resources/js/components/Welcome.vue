@@ -1,53 +1,17 @@
 <script setup>
-
+import UWIWordmark from "../../images/UWI-Wordmark.webp";
 </script>
 
 <template>
-    <div>
-      <nav>
-        <ul>
-          <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="/about">About</router-link></li>
-          <li><router-link to="/login">Login</router-link></li>
-          <li><router-link to="/cars">Cars</router-link></li>
-        </ul>
-      </nav>
-      <header>
-        <h1>Welcome to Our Application</h1>
-        <p>This is the beginning of your Vue.js and Laravel journey.</p>
-      </header>
-      <section>
-        <button @click="goToCars">View Cars</button>
-        <button @click="goToAbout">Learn More About Us</button>
-      </section>
+    <div class="px-4 py-5 my-5 text-center bg-body-tertiary rounded-3">
+        <img class="img-fluid" :src="UWIWordmark" alt="UWI Wordmark" width="300" />
+        <h1 class="display-5 fw-bold text-body-emphasis">Welcome</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">You've successfully loaded up the Laravel and VueJS starter template for this assignment.</p>
+        </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'WelcomePage',
-    methods: {
-      goToCars() {
-        this.$router.push('/cars');
-      },
-      goToAbout() {
-        this.$router.push('/about');
-      }
-    }
-  }
-  </script>
-  
-  <style scoped>
-  nav ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-  }
-  nav ul li {
-    margin-right: 10px;
-  }
-  header h1 {
-    color: #333;
-  }
-  </style>
-  
+</template>
+
+<style scoped>
+
+</style>
