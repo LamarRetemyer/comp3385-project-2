@@ -1,37 +1,84 @@
-<script setup>
-
-</script>
-
 <template>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">United Auto Sales</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" :class="{ active: $route.path === '/'}" to="/">Home</RouterLink>
-                    </li>
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" :class="{ active: $route.path === '/about'}" to="/about">About</RouterLink>
-                    </li>
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" :class="{ active: $route.path === '/cars'}" to="/cars">Cars</RouterLink>
-                    </li>
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" :class="{ active: $route.path === '/register'}" to="/register">Register</RouterLink>
-                    </li>
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" :class="{ active: $route.path === '/login'}" to="/login">Login</RouterLink>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</template>
-
-<style scoped>
-
-</style>
+    <header class="header-container">
+      <h1 class="header-title">United Auto Sales</h1>
+      <nav class="header-nav">
+        <!-- Conditional rendering based on isLoggedIn -->
+        <template v-if="isLoggedIn">
+          <!-- Tabs available only when logged in -->
+          <button @click="goToDashboard" class="header-button">Dashboard</button>
+          <button @click="goToSettings" class="header-button">Settings</button>
+          <button @click="logout" class="header-button">Logout</button>
+        </template>
+        <template v-else>
+          <!-- Tabs available when not logged in -->
+          <button @click="goToRegister" class="header-button">Register</button>
+          <button @click="goToLogin" class="header-button">Login</button>
+        </template>
+      </nav>
+    </header>
+  </template>
+  
+  <script>
+  export default {
+    name: 'Header',
+    data() {
+      return {
+        isLoggedIn: false 
+      };
+    },
+    methods: {
+      goToRegister() {
+        this.$router.push('/register');
+      },
+      goToLogin() {
+        this.$router.push('/login');
+      },
+      goToDashboard() {
+        this.$router.push('/dashboard');
+      },
+      goToSettings() {
+        this.$router.push('/settings');
+      },
+      logout() {
+        // Perform logout logic, then update isLoggedIn
+        this.isLoggedIn = false;
+        this.$router.push('/login');
+      }
+    }
+  };
+  </script>
+  
+  <style scoped>
+  .header-container {
+    background-color: #202938; /* Updated background color */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-title {
+    padding: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFF; /* Changed to white for better contrast */
+  }
+  
+  .header-nav {
+    display: flex;
+  }
+  
+  .header-button {
+    background-color: transparent;
+    border: none;
+    color: #FFF; /* Changed to white for better contrast */
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .header-button:hover {
+    color: #AAA; /* Lighter grey for hover effect */
+  }
+  </style>
+  
