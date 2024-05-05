@@ -4,6 +4,9 @@ import HomeView from "../Pages/HomeView.vue";
 import LoginView from "../Pages/LoginView.vue";
 import CarsView from "../Pages/CarsView.vue";
 import RegisterView from "../Pages/RegisterView.vue";
+import DetialsView from "../Pages/DetailsView.vue";
+import ProfileView from "../Pages/ProfileView.vue";
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -31,7 +34,22 @@ const router = createRouter({
             path: '/cars',
             name: 'cars',
             component: CarsView
+        },
+        
+        {
+            path: '/profile',
+            name: 'profile',
+            component: ProfileView
+        },
+
+        {
+            path: '/car-details/:id',
+            name: 'CarDetails',
+            component: DetialsView,
+            props: true
         }
+        
+        
     ]
 })
 

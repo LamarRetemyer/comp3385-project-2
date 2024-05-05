@@ -1,48 +1,42 @@
 <template>
   <div class="form-container">
-    <h1>Login1</h1>
-    <form @submit.prevent="loginUser">
+    <form @submit.prevent="login">
       <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" v-model="loginData.email" placeholder="Enter email"/>
+        <label for="email">Email</label>
+        <input type="email" id="email" v-model="email" required>
       </div>
-      <div class="form-group">  
-        <label for="password">Password:</label>
-        <input type="password" v-model="loginData.password" placeholder="Password"/>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" v-model="password" required>
       </div>
-
-      <button type="submit" class="submit-btn">Login</button>
+      <div class="form-group">
+        <button type="submit" class="submit-btn">Login</button>
+      </div>
+      <div v-if="message" class="message">{{ message }}</div>
     </form>
-    <p v-if="message" class="message">{{ message }}</p>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
-  name: 'LoginForm',
   data() {
     return {
-      loginData: {
-        email: '',
-        password: ''
-      },
+      email: '',
+      password: '',
       message: ''
     };
   },
   methods: {
-    loginUser() {
-      axios.post('/api/v1/auth/login', this.loginData)
-        .then(response => {
-          this.message = 'Login successful!';
-          console.log(response);
-          // You might want to redirect or save the auth token here
-        })
-        .catch(error => {
-          this.message = 'Login failed: ' + error.response.data.message; // Adjust based on your error response structure
-          console.error(error);
+    async login() {
+      try {
+        const response = await this.$axios.post('/api/v1/auth/login', {
+          email: this.email,
+          password: this.password
         });
+        this.$router.push('/explore');
+      } catch (error) {
+        this.message = error.response.data.error || 'Failed to login';
+      }
     }
   }
 }

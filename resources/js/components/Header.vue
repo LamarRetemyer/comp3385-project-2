@@ -3,17 +3,17 @@
       <h1 class="header-title">United Auto Sales</h1>
       <nav class="header-nav">
         <!-- Conditional rendering based on isLoggedIn -->
-        <template v-if="isLoggedIn">
+        <!-- <template v-if="isLoggedIn"> -->
           <!-- Tabs available only when logged in -->
-          <button @click="goToDashboard" class="header-button">Dashboard</button>
-          <button @click="goToSettings" class="header-button">Settings</button>
+          <button @click="goToExplore" class="header-button">Explore</button>
+          <button @click="goToProfile" class="header-button">View Profile</button>
           <button @click="logout" class="header-button">Logout</button>
-        </template>
-        <template v-else>
+        <!-- </template>
+        <template v-else> -->
           <!-- Tabs available when not logged in -->
           <button @click="goToRegister" class="header-button">Register</button>
           <button @click="goToLogin" class="header-button">Login</button>
-        </template>
+        <!-- </template> -->
       </nav>
     </header>
   </template>
@@ -33,11 +33,11 @@
       goToLogin() {
         this.$router.push('/login');
       },
-      goToDashboard() {
-        this.$router.push('/dashboard');
+      goToExplore() {
+        this.$router.push('/cars');
       },
-      goToSettings() {
-        this.$router.push('/settings');
+      goToProfile() {
+        this.$router.push('/profile');
       },
       logout() {
         // Perform logout logic, then update isLoggedIn

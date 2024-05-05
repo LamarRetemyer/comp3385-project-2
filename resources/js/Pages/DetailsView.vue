@@ -1,12 +1,11 @@
 <script setup>
-import CarsList from "../components/CarsList.vue";
+import CarDetails from "../components/CarDetails.vue";
 </script>
 
 <template>
-  <CarsList />
+  <CarDetails />
 </template>
 
 <style scoped>
 
 </style>
-

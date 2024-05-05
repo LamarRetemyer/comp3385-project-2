@@ -7,10 +7,12 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\FavouriteController;
 
 // Group all API routes under the 'api/v1' prefix for version management
-Route::prefix('api/v1')->group(function () {
+
     // Authentication Routes
     Route::post('/auth/register', [AuthController::class, 'register']);
-    Route::post('/auth/login', [AuthController::class, 'authenticate']);
+    // routes/api.php
+    Route::post('/auth/login', [AuthController::class, 'login']);
+
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 
     // User Routes
@@ -33,4 +35,3 @@ Route::prefix('api/v1')->group(function () {
 
     // Search Route
     Route::get('/search', [CarController::class, 'search']); // Search for cars by make or model
-});
